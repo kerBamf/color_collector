@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% for base_color in base_colors %}
+<h1>{{base_color.name}}</h1>
+<a href="{% url 'base_detail' base_color.pk %}">Link</a>
+{% endfor %}
+
+{% endblock %}

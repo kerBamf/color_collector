@@ -1,5 +1,24 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>Just Some Basic Content</h1>
+    <h1>Welcome to Color Collector!</h1>
+    <p>A simple site organizing colors and palettes as you desire! To get started, select on of these base colors to see the shades each contains!</p>
+
+
+
+<div class="container">
+    <form action="{% url 'song_create' artist.pk %}" method="post">
+
+    </form>
+    <div class="row">
+        {% for base_color in base_colors %}
+        <div class="col-md-4 col-xs-12">
+            <h1>{{base_color.name}}</h1>
+            <a class="d-block" href="{% url 'base_detail' base_color.pk %}">Link</a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+
 {% endblock %}
