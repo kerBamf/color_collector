@@ -9,3 +9,7 @@ body {
 .newColorForm {
     width: 300px;
 }
+
+.cardColorFrame {
+    min-height: 70px;
+}

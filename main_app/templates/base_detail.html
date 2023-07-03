@@ -7,13 +7,26 @@
 
 <div class="detailsContainer container">
     <h1>{{basecolor.name}}</h1>
+    <h3>Shades:</h3>
     <div class="row">
         {% for color in basecolor.shades.all %}
-        <div class="col-md-6">
-            <p>{{color.name}}</p>
-            <p>{{color.hex}}</p>
-            <p>{{color.rgb}}</p>
+        
+        <div class="col col-xs-12 col-sm-6 col-md-4">
+            <div class="card m-t-1 m-b-1">
+                <div class="cardColorFrame" style="background-color: {{ color.rgb }};"></div>
+                <div class="card-body">
+                    <h4 class="card-title">{{ color.name }}</h4>
+                    <p><b>RGB:</b> {{ color.rgb }}</p>
+                    <p><b>Hex:</b> {{ color.hex }}</p>
+                    <div class="row">
+                        <button class="btn col-12 btn-dark">Add to Palette</button>
+                        <button class="btn col-6 btn-secondary">Edit</button>
+                        <button class="btn col-6 btn-danger">Delete</button>
+                    </div>
+                </div>
+            </div>
         </div>
+
         {% empty %}
         <div class="col">
             <p>No Colors Associated</p>
