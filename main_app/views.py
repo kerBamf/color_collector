@@ -36,6 +36,14 @@ class BaseDetail(DetailView):
     #     context["shades"] = ShadeColor.objects.filter(base_color=self.kwargs['pk'])
     #     return context
 
+class AllColors(TemplateView):
+    template_name = 'all_colors.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["all_colors"] = ShadeColor.objects.all()
+        return context
+
 class ColorCreate(View):
     def post(self, request):
         name = request.POST.get('colorName')
@@ -59,7 +67,7 @@ class ColorUpdate(View):
         return redirect(redir)
     
 class FromBaseShadeDelete(View):
-    def post(self, request, base_pk, shade_pk):
+    def post(self, request, shade_pk):
         redir = request.POST.get('redirect')
         ShadeColor.objects.filter(pk=shade_pk).delete()
         return redirect(redir)
