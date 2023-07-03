@@ -2,14 +2,14 @@
 
 {% block content %}
     <h1>Welcome to Color Collector!</h1>
-    <p>A simple site organizing colors and palettes as you desire! To get started, select on of these base colors to see the shades each contains!</p>
+    <p>A simple site organizing colors and palettes as you desire! Add colors via the "Add Colors" dropdown to get started!</p>
 
 
 
 <div class="container">
-    <form action="{% url 'song_create' artist.pk %}" method="post">
+    <!-- <form action="" method="post">
 
-    </form>
+    </form> -->
     <div class="row">
         {% for base_color in base_colors %}
         <div class="col-md-4 col-xs-12">

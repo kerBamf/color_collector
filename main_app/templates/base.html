@@ -14,13 +14,57 @@
     <title>Color Collector - {% block title %}{% endblock %}</title>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light">
+    <nav class="navbar navbar-expand-sm navbar-light bg-light">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/">
-                <div class="mainTitle">Color Collector</div>
-            </a>
+          <a class="navbar-brand" href="#">Color Collector</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="/">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Palettes</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">All Colors</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  New Color!
+                </a>
+                <div class="dropdown-menu newColorForm">
+                    <form class="px-4 py-3" action="{% url 'color_create' %}" method="post">
+                        {% csrf_token %}
+                      <div class="mb-3">
+                        <label for="colorName" class="form-label">Name:</label>
+                        <input type="text" class="form-control" name="colorName" placeholder="" required>
+                      </div>
+                      <div class="mb-3">
+                        <label for="colorRGB" class="form-label">RGB:</label>
+                        <input type="text" class="form-control" name="colorRGB" placeholder="rgb(XXX, XXX, XXX)" required>
+                      </div>
+                      <div class="mb-3">
+                        <label for="colorHex" class="form-label">Hex:</label>
+                        <input type="text" class="form-control" name="colorHex" placeholder="#XXXXXX" required>
+                      </div>
+                      <div class="mb-3">
+                        <select class="form-select" aria-label="Default select example" id="baseSelect" name="baseSelect">
+                            <option value="1">Reds</option>
+                            <option value="2">Greens</option>
+                            <option value="3">Blues</option>
+                        </select>
+                      </div>
+                      <button type="submit" class="btn btn-primary">Add Color</button>
+                    </form>
+                  </div>
+              </li>
+            </ul>
+          </div>
         </div>
-    </nav>
+      </nav>
     {% block content %}{% endblock %}
 </body>
 </html>

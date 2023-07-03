@@ -5,3 +5,7 @@ body {
 .mainTitle {
     color: black;
 }
+
+.newColorForm {
+    width: 300px;
+}

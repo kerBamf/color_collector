@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.shortcuts import redirect
 from django.views import View
 from django.http import HttpResponse
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -34,3 +35,13 @@ class BaseDetail(DetailView):
     #     context = super().get_context_data(**kwargs)
     #     context["shades"] = ShadeColor.objects.filter(base_color=self.kwargs['pk'])
     #     return context
+
+class ColorCreate(View):
+    def post(self, request):
+        name = request.POST.get('colorName')
+        rgb = request.POST.get('colorRGB')
+        hex = request.POST.get('colorHex')
+        base_select = request.POST.get('baseSelect')
+        base_color = BaseColor.objects.get(pk=base_select)
+        ShadeColor.objects.create(name=name, rgb=rgb, hex=hex, base_color=base_color)
+        return redirect('home')
