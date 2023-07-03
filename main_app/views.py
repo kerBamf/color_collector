@@ -42,11 +42,24 @@ class ColorCreate(View):
         rgb = request.POST.get('colorRGB')
         hex = request.POST.get('colorHex')
         base_select = request.POST.get('baseSelect')
+        redir = request.POST.get('redirect')
         base_color = BaseColor.objects.get(pk=base_select)
         ShadeColor.objects.create(name=name, rgb=rgb, hex=hex, base_color=base_color)
-        return redirect('home')
+        return redirect(redir)
+
+class ColorUpdate(View):
+    def post(self, request, shade_pk):
+        name = request.POST.get('colorName')
+        rgb = request.POST.get('colorRGB')
+        hex = request.POST.get('colorHex')
+        base_select = request.POST.get('baseSelect')
+        redir = request.POST.get('redirect')
+        base_color = BaseColor.objects.get(pk=base_select)
+        ShadeColor.objects.filter(pk=shade_pk).update(name=name, rgb=rgb, hex=hex, base_color=base_color)
+        return redirect(redir)
     
 class FromBaseShadeDelete(View):
     def post(self, request, base_pk, shade_pk):
+        redir = request.POST.get('redirect')
         ShadeColor.objects.filter(pk=shade_pk).delete()
-        return redirect(f'/base_color/{base_pk}')
+        return redirect(redir)

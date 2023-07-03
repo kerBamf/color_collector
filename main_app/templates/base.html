@@ -35,7 +35,7 @@
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                   New Color!
                 </a>
-                <div class="dropdown-menu newColorForm">
+                <div class="dropdown-menu colorForm">
                     <form class="px-4 py-3" action="{% url 'color_create' %}" method="post">
                         {% csrf_token %}
                       <div class="mb-3">
@@ -52,14 +52,16 @@
                       </div>
                       <div class="mb-3">
                         <select class="form-select" aria-label="Default select example" id="baseSelect" name="baseSelect">
+                            <option selected disabled>------</option>
                             <option value="1">Reds</option>
                             <option value="2">Greens</option>
                             <option value="3">Blues</option>
                         </select>
                       </div>
                       <button type="submit" class="btn btn-primary">Add Color</button>
+                      <input class="d-none" type="text" value="{{ request.path }}" name="redirect">
                     </form>
-                  </div>
+                </div>
               </li>
             </ul>
           </div>
