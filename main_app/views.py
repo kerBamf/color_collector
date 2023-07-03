@@ -45,3 +45,8 @@ class ColorCreate(View):
         base_color = BaseColor.objects.get(pk=base_select)
         ShadeColor.objects.create(name=name, rgb=rgb, hex=hex, base_color=base_color)
         return redirect('home')
+    
+class FromBaseShadeDelete(View):
+    def post(self, request, base_pk, shade_pk):
+        ShadeColor.objects.filter(pk=shade_pk).delete()
+        return redirect(f'/base_color/{base_pk}')

@@ -19,9 +19,18 @@
                     <p><b>RGB:</b> {{ color.rgb }}</p>
                     <p><b>Hex:</b> {{ color.hex }}</p>
                     <div class="row">
-                        <button class="btn col-12 btn-dark">Add to Palette</button>
-                        <button class="btn col-6 btn-secondary">Edit</button>
-                        <button class="btn col-6 btn-danger">Delete</button>
+                        <div class="col-12">
+                            <button class="btn col-12 btn-dark">Add to Palette</button>
+                        </div>
+                        <div class="col-6">
+                            <button class="btn col-12 btn-secondary">Edit</button>
+                        </div>
+                        <div class="col-6">
+                        <form action="{% url 'shade_delete' basecolor.pk color.pk%}" method="post">
+                            {% csrf_token %}
+                            <button class="btn btn-fluid btn-danger col-12">Delete</button>
+                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
