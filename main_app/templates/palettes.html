@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container">
+    <h1 class="paletteHeader">Palettes</h1>
+    <h3 class ="d-inline-block">Create a New Palette - </h3>
+    <div class="paletteFormContainer d-inline-block">
+        <form action="{% url 'palette_create' %}" method="post">
+            {% csrf_token %}
+            <input class="d-inline-block" type="text" placeholder="Palette Name" name="name" id="name"></input>
+            <button class="btn btn-primary d-inline-block">Create New Palette</button>
+        </form>
+    </div>
+
+{% for palette in palettes.all %}
+
+    <div class="listedPaletteContainer">
+
+    <h4>{{ palette.name }}</h4>
+
+    {% for color in palette.colors.all %}
+
+        <div class="row">
+            <div class="col col-xs-1"></div>
+            <div class="col col-xs-2">
+                <p>{{ color.name }}</p>
+            </div>
+        </div>
+
+    {% empty %}
+
+        <div class="row">
+            <p>No Colors Added Yet</p>
+        </div>
+
+    {% endfor %}
+    </div>
+{% empty %}
+
+ <h4>No Palettes Listed!</h4>
+
+{% endfor %}
+
+</div>
+
+{% endblock %}

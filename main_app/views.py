@@ -1,3 +1,4 @@
+from typing import Any, Dict
 from django.shortcuts import render
 from django.shortcuts import redirect
 from django.views import View
@@ -71,3 +72,17 @@ class FromBaseShadeDelete(View):
         redir = request.POST.get('redirect')
         ShadeColor.objects.filter(pk=shade_pk).delete()
         return redirect(redir)
+    
+class Palettes(TemplateView):
+    template_name = 'palettes.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["palettes"] = Palette.objects.all()
+        return context
+    
+class PaletteCreate(View):
+    def post(self, request):
+        name = request.POST.get('name')
+        Palette.objects.create(name=name)
+        return redirect('palettes')

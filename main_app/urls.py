@@ -9,4 +9,6 @@ urlpatterns = [
     path('allColors/new/', views.ColorCreate.as_view(), name="color_create"),
     path('allColors/update/<int:shade_pk>/', views.ColorUpdate.as_view(), name="color_update"),
     path('allColors/delete/<int:shade_pk>/', views.FromBaseShadeDelete.as_view(), name='shade_delete'),
+    path('palettes/', views.Palettes.as_view(), name="palettes"),
+    path('palettes/create/', views.PaletteCreate.as_view(), name="palette_create"),
 ]
