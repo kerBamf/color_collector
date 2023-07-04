@@ -11,4 +11,5 @@ urlpatterns = [
     path('allColors/delete/<int:shade_pk>/', views.FromBaseShadeDelete.as_view(), name='shade_delete'),
     path('palettes/', views.Palettes.as_view(), name="palettes"),
     path('palettes/create/', views.PaletteCreate.as_view(), name="palette_create"),
+    path('palettes/addColor/<int:color_pk>', views.PaletteColorAdd.as_view(), name="palette_color_add")
 ]

@@ -32,6 +32,11 @@ class BaseDetail(DetailView):
     model = BaseColor
     template_name = 'base_detail.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["palettes"] = Palette.objects.all()
+        return context
+
     # def get_context_data(self, **kwargs):
     #     context = super().get_context_data(**kwargs)
     #     context["shades"] = ShadeColor.objects.filter(base_color=self.kwargs['pk'])
@@ -43,6 +48,7 @@ class AllColors(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["all_colors"] = ShadeColor.objects.all()
+        context["palettes"] = Palette.objects.all()
         return context
 
 class ColorCreate(View):
@@ -86,3 +92,10 @@ class PaletteCreate(View):
         name = request.POST.get('name')
         Palette.objects.create(name=name)
         return redirect('palettes')
+    
+class PaletteColorAdd(View):
+    def post(self, request, color_pk):
+        palette_pk = request.POST.get('paletteSelect')
+        redir = request.POST.get('redirect')
+        Palette.objects.get(pk=palette_pk).colors.add(color_pk)
+        return redirect(redir)
