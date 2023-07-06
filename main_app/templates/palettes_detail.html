@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="detailsContainer container">
+    <h1>{{palette.name}}</h1>
+    <h3>Shades:</h3>
+    <div class="row">
+        {% for color in palette.colors.all %}
+        
+        <div class="col col-xs-12 col-sm-6 col-md-4">
+            <div class="card m-t-1 m-b-1">
+                <div class="cardColorFrame" style="background-color: {{ color.rgb }};"></div>
+                <div class="card-body">
+                    <h4 class="card-title">{{ color.name }}</h4>
+                    <p><b>RGB:</b> {{ color.rgb }}</p>
+                    <p><b>Hex:</b> {{ color.hex }}</p>
+                    <div class="row">
+                            <!-- Palette Add Dropdown -->
+                            <!-- <button class="btn col-12 btn-dark">Add to Palette</button> -->
+                        <div class="col col-12">
+                            <form class="px-4 py-3" action="{% url 'palette_color_remove' palette.pk color.pk %}" method="post">
+                                {% csrf_token %}
+                            <button type="submit" class="btn col-12 btn-dark">Remove from Palette</button>
+                            </form>
+                        </div>
+                        <div class="col-6">
+                            <div class="dropdown">
+                                <button class="btn col-12 btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                  Edit
+                                </button>
+                                <div class="dropdown-menu colorForm">
+                                    <form class="px-4 py-3" action="{% url 'color_update' color.pk %}" method="post">
+                                        {% csrf_token %}
+                                      <div class="mb-3">
+                                        <label for="colorName" class="form-label">Name:</label>
+                                        <input type="text" class="form-control" name="colorName" placeholder="" value="{{ color.name }}" required>
+                                      </div>
+                                      <div class="mb-3">
+                                        <label for="colorRGB" class="form-label">RGB:</label>
+                                        <input type="text" class="form-control" name="colorRGB" placeholder="rgb(XXX, XXX, XXX)" value="{{ color.rgb }}" required>
+                                      </div>
+                                      <div class="mb-3">
+                                        <label for="colorHex" class="form-label">Hex:</label>
+                                        <input type="text" class="form-control" name="colorHex" placeholder="#XXXXXX" value="{{ color.hex }}" required>
+                                      </div>
+                                      <div class="mb-3">
+                                        <select class="form-select" aria-label="Default select example" id="baseSelect" name="baseSelect">
+                                            {% if basecolor.pk == 1 %}
+                                            <option value="1" selected>Reds</option>
+                                            <option value="2">Greens</option>
+                                            <option value="3">Blues</option>
+                                            {% elif basecolor.pk == 2 %}
+                                            <option value="1">Reds</option>
+                                            <option value="2" selected>Greens</option>
+                                            <option value="3">Blues</option>
+                                            {% elif basecolor.pk == 3 %}
+                                            <option value="1">Reds</option>
+                                            <option value="2">Greens</option>
+                                            <option value="3" selected>Blues</option>
+                                            {% endif %}
+                                        </select>
+                                      </div>
+                                      <button type="submit" class="btn btn-primary">Submit</button>
+                                      
+                                    <input class="d-none" type="text" value="{{ request.path }}" name="redirect">
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                        <form action="{% url 'shade_delete' color.pk %}" method="post">
+                            {% csrf_token %}
+                            <button class="btn btn-fluid btn-danger col-12">Delete</button>
+                            <input class="d-none" type="text" value="{{ request.path }}" name="redirect">
+                        </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% empty %}
+        <div class="col">
+            <p>No Colors Associated</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

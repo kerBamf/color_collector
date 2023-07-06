@@ -9,15 +9,24 @@
         <form action="{% url 'palette_create' %}" method="post">
             {% csrf_token %}
             <input class="d-inline-block" type="text" placeholder="Palette Name" name="name" id="name"></input>
-            <button class="btn btn-primary d-inline-block">Create New Palette</button>
+            <button class="btn btn-primary d-inline-block">Submit</button>
         </form>
     </div>
 
 {% for palette in palettes.all %}
 
-    <div class="listedPaletteContainer">
-
-    <h4>{{ palette.name }}</h4>
+    <div class="listedPaletteContainer container">
+    <div class="row">
+        <div class="col col-xs-2">
+            <a href="/palettes/{{palette.pk}}"><h4>{{ palette.name }}</h4></a>
+        </div>
+        <div class="col col-xs-2">
+            <form action="{% url 'palette_delete' palette.pk %}" method="post">
+                {% csrf_token %}
+                <button class="btn btn-danger">Delete Palette</button>
+            </form>
+        </div>
+    </div>
 
     {% for color in palette.colors.all %}
 

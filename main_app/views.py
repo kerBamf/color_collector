@@ -93,9 +93,25 @@ class PaletteCreate(View):
         Palette.objects.create(name=name)
         return redirect('palettes')
     
+class PaletteDelete(View):
+    def post(self, request, palette_pk):
+        Palette.objects.filter(pk=palette_pk).delete()
+        return redirect('palettes')
+    
 class PaletteColorAdd(View):
     def post(self, request, color_pk):
         palette_pk = request.POST.get('paletteSelect')
         redir = request.POST.get('redirect')
         Palette.objects.get(pk=palette_pk).colors.add(color_pk)
         return redirect(redir)
+    
+class PaletteColorRemove(View):
+    def post(self, request, palette_pk, color_pk):
+        redir = request.POST.get('redirect')
+        Palette.objects.get(pk=palette_pk).colors.remove(color_pk)
+        return redirect(redir)
+
+    
+class PaletteDetail(DetailView):
+    model = Palette
+    template_name = 'palettes_detail.html'
