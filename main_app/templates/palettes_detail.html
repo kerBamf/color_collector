@@ -21,6 +21,7 @@
                         <div class="col col-12">
                             <form class="px-4 py-3" action="{% url 'palette_color_remove' palette.pk color.pk %}" method="post">
                                 {% csrf_token %}
+                                <input class="d-none" type="text" value="{{ request.path }}" name="redirect">
                             <button type="submit" class="btn col-12 btn-dark">Remove from Palette</button>
                             </form>
                         </div>
