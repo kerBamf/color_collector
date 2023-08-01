@@ -47,15 +47,15 @@
                                       </div>
                                       <div class="mb-3">
                                         <select class="form-select" aria-label="Default select example" id="baseSelect" name="baseSelect">
-                                            {% if basecolor.pk == 1 %}
+                                            {% if color.base_color.pk == 1 %}
                                             <option value="1" selected>Reds</option>
                                             <option value="2">Greens</option>
                                             <option value="3">Blues</option>
-                                            {% elif basecolor.pk == 2 %}
+                                            {% elif color.base_color.pk == 2 %}
                                             <option value="1">Reds</option>
                                             <option value="2" selected>Greens</option>
                                             <option value="3">Blues</option>
-                                            {% elif basecolor.pk == 3 %}
+                                            {% elif color.base_color.pk == 3 %}
                                             <option value="1">Reds</option>
                                             <option value="2">Greens</option>
                                             <option value="3" selected>Blues</option>
